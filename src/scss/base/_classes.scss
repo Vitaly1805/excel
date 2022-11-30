@@ -1,0 +1,35 @@
+._container {
+    max-width: $widthContainer;
+    margin: 0 auto;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+._title {
+    font-size: 34px;
+    line-height: 42px;
+    text-align: center;
+    font-weight: bold;
+}
+
+._btn {
+    color: #fff;
+    background: #000;
+    border-radius: 40px;
+    font-weight: bold;
+    padding: 0 30px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all .5 ease;
+
+    &:hover {
+        background: rgb(36, 34, 34);
+    }
+}
+
+body.lock {
+    overflow: hidden;
+}
