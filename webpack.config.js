@@ -7,8 +7,6 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 const isProd = process.env.NODE_ENV === 'production'
 const isDev = !isProd
 
-const filename = ext => isProd ? `bundle.${ext}` : `bundle[hash].${ext}`
-
 const jsLoaders = () => {
   const loaders = [
     {
@@ -31,36 +29,34 @@ module.exports = {
   mode: 'development',
   entry: './index.js',
   output: {
-    filename: filename('js'),
+    filename: 'bundle[hash].js',
     path: path.resolve(__dirname, 'dist')
-  },
-  resolve: {
-    extensions: ['.js'],
-    alias: {
-      '@': path.resolve(__dirname, 'src'),
-      '@core': path.resolve(__dirname, 'src/core')
-    }
   },
   devtool: isDev ? 'source-map' : '',
   plugins: [
     new HtmlWebpackPlugin({
-      template: './index.html',
+      template: 'index.html',
       minify: {
-        removeComments: isProd,
         collapseWhitespace: isProd,
+        keepClosingSlash: isProd,
+        removeComments: isProd,
+        removeRedundantAttributes: isProd,
+        removeScriptTypeAttributes: isProd,
+        removeStyleLinkTypeAttributes: isProd,
+        useShortDoctype: isProd
       }
     }),
     new CleanWebpackPlugin(),
     new CopyPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, 'src/favicon.ico'),
-          to: path.resolve(__dirname, 'dist')
+          from: path.resolve(__dirname, "src/favicon.ico"),
+          to: path.resolve(__dirname, "dist/")
         }
       ],
     }),
     new MiniCssExtractPlugin({
-      filename: filename('css')
+      filename: 'bundle[hash].css'
     })
   ],
   module: {
@@ -82,7 +78,7 @@ module.exports = {
   },
   devServer: {
     open: true,
-    hot: true,
+    hot: isDev,
     port: 8080,
     static: [
       {
