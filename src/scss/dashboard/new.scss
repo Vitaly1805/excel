@@ -1,0 +1,38 @@
+.new {
+    &__body {
+        padding-top: calc($heightHeaderDashboard + 20px);
+        padding-bottom: 20px;
+    }
+
+    &__title {
+        font-size: 20px;
+        margin: 0 0 20px 0;
+    }
+
+    &__button {
+        width: 150px;
+        height: 100px;
+        border: 1px solid $borderColor;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all .5s ease 0s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 0 20px 0;
+
+        &:hover {
+            border: 1px solid green;  
+
+            span {
+                color: green; 
+            }
+        }
+
+        span {
+            font-size: 60px;
+            transition: all .5s ease 0s;
+        }
+    }
+}
+

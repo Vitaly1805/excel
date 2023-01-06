@@ -1,0 +1,22 @@
+.toolbar-excel {
+    position: absolute;
+    left: 0;
+    top: $heightHeader;
+    height: $heightToolbar;
+    width: 100%;
+    border-top: 2px solid $borderColor;
+    border-bottom: 2px solid $borderColor;
+
+    &__body {
+        padding: $excelPadding;
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    &__list {
+        span {
+            @include button(20px);
+        }
+    }
+}

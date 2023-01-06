@@ -1,0 +1,70 @@
+.table-excel {
+    position: absolute;
+    left: 0;
+    top: $heightHeader + $heightFormula + $heightToolbar;
+    max-width: 100%;
+
+    &__body {
+        overflow: auto;
+        max-height: calc(100vh - $heightFormula - $heightHeader - $heightToolbar);
+
+        &::-webkit-scrollbar {
+            width: 12px;      
+            height: 12px;
+        }
+          
+        &::-webkit-scrollbar-track {
+            background: #fff;    
+            border: 1px solid #dadce0;   
+        }
+        
+        &::-webkit-scrollbar-thumb {
+            background-color: #dadce0;  
+            border-radius: 20px; 
+        }
+    }
+
+    &__cell {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 120px;
+        border: 1px solid #e5e5e6;
+        border-top: none;
+        border-left: none;
+        height: 25px;
+        transition: all .5s ease 0s;
+
+        &_selected {
+           border: 2px solid #1a73e8;
+        }
+    }
+
+    &__num,
+    &__column {
+        border: 1px solid #c7c7c7;
+        border-top: none;
+        border-left: none;
+        background: #f8f9fa;
+    }
+
+    &__num {
+        min-width: $widthFirstCell;
+    }
+
+    &__column,
+    &__num {
+        &_selected {
+            background: #5f6368;
+            color: #fff;
+        }
+
+        &_active {
+            background: #e8eaed;
+        }
+    }
+
+    &__row {
+        display: flex;
+    }
+}

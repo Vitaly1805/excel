@@ -1,0 +1,31 @@
+.formula-excel {
+    position: absolute;
+    left: 0;
+    top: $heightHeader + $heightToolbar;
+    height: $heightFormula;
+    width: 100%;
+    border-bottom: 2px solid $borderColor;
+
+    &__body {
+        height: 100%;
+        display: flex;
+    }
+
+    &__info {
+        width: $widthFirstCell + .5px;
+        height: calc(100% + 1px);  
+        box-sizing: content-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-right: 1px solid $borderColor;
+    }
+
+    &__input {
+        width: 100%;
+        height: 100%;
+        padding: 5px;
+        font-size: 14px;
+        display: flex;
+    }
+}

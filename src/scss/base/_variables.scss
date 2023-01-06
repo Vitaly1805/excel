@@ -1,13 +1,22 @@
 $widthContainer: 1000px;
 $fontFamily: "Roboto";
-$fontSize: 18px;
+$fontSize: 16px;
 $mainColor: #070707;
 $secondColor: #828282;
 $firstBackgound: #fff;
 $secondBackground: #F6F6F6;
+$fontWeight: 500;
 
 // Брейк-поинты
 $pc: $widthContainer + px; // ПК, ноутбуки, некоторые планшеты в горизонтальном положении
 $tablet: 991.98px; // Планшеты, некоторые телефоны в горизонтальном положении
 $mobile: 767.98px; // Телефоны L
 $mobileSmall: 479.98px; // Телефоны S
+
+$heightHeader: 34px;
+$heightToolbar: 40px;
+$heightFormula: 24px;
+$borderColor:#cdcdcd;
+$widthFirstCell: 40px;
+$excelPadding: 0 10px;
+$heightHeaderDashboard: 50px;

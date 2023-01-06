@@ -1,0 +1,40 @@
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: $heightHeader;
+    width: 100%;
+
+    &__body {
+        padding: $excelPadding;
+        height: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__input {
+        border: 1px solid transparent;
+        padding: 3px 5px;
+        color: #989797;
+        border-radius: 5px;
+        font-size: 18px;
+
+        &:hover {
+            border: 1px solid $borderColor;
+        }
+
+        &:focus {
+            border: 1px solid blue;
+        }
+    }
+
+    &__icons {
+        display: flex;
+        align-items: center;
+
+        span {
+            @include button(26x);
+        }
+    }
+}

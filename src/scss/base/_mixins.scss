@@ -1,0 +1,20 @@
+@mixin button ($fontSize: 30px, $color: green) {
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background .5s ease 0s;
+    font-size: $fontSize;
+    padding: 2px;
+    user-select: none;
+
+    &:not(:last-child) {
+        margin: 0 10px 0 0;
+    }
+
+    &:hover {
+        background: #cdcdcd;
+    }
+
+    &:active {
+        color: $color;
+    }
+}
