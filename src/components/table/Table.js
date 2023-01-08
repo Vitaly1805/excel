@@ -1,0 +1,13 @@
+import {ExcelComponent} from "@core/ExcelComponent";
+import {createTable} from "./table.template";
+
+export class Table extends ExcelComponent {
+  static className = 'table-excel'
+
+  getHTML() {
+    return `
+      <div class="table-excel__body">
+        ${createTable()}
+      </div`
+  }
+}
