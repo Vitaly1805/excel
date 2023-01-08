@@ -7,37 +7,39 @@ function toChar(code) {
   return String.fromCodePoint(code)
 }
 
-function createCell(value = '') {
-  let cell = '<div class="table-excel__cell table-excel__column"'
-
-  if (!value) {
-    cell = cell + " contenteditable"
-  }
-
-  return cell + `>${value}</div>`
+function createColumn(value = '') {
+  return `<div class="table-excel__column">${value}</div>`
 }
 
-function createFirstCell(value = '') {
-  return `<div class="table-excel__cell table-excel__num">${value}</div>`
+function createCell(value = '') {
+  return `<div class="table-excel__cell" contenteditable>${value}</div>`
+}
+
+function createNumCell(value = '') {
+  return `<div class="table-excel__num">${value}</div>`
 }
 
 function createRow(value, isTop = false) {
   let row = '<div class="table-excel__row">'
   const countColumn = CODES.Z - CODES.A
 
-  row = row + createFirstCell(value, true)
+  row = row + createNumCell(value, true)
 
   for (let i = 0; i <= countColumn; i++) {
-    row = row + createCell(isTop ? toChar(CODES.A + i) : '')
+    if (isTop) {
+      row = row + createColumn(toChar(CODES.A + i))
+    } else {
+      row = row + createCell()
+    }
   }
 
   return row + '</div>'
 }
 
-export function createTable(countRow = 50) {
+export function createTable(countRow = 25) {
   let table = ''
 
-  table = table + createRow(' ', true)
+  table = table + createRow('', true)
 
   for (let i = 1; i <= countRow; i++) {
     table = table + createRow(i)

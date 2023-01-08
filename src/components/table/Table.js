@@ -7,7 +7,7 @@ export class Table extends ExcelComponent {
   getHTML() {
     return `
       <div class="table-excel__body">
-        ${createTable()}
+        ${createTable(50)}
       </div`
   }
 }

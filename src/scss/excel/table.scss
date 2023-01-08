@@ -22,19 +22,24 @@
     }
 
     &__cell {
+      min-width: 120px;
+      border-bottom: 1px solid #e5e5e6;
+      border-right: 1px solid #e5e5e6;
+      padding: 2px 0 0 0;
+
+      &_selected {
+        border-bottom: 3px solid #1a73e8;
+        border-right: 3px solid #1a73e8;
+      }
+    }
+
+    &__cell,
+    &__column,
+    &__num  {
         display: flex;
         align-items: center;
-        justify-content: center;
-        min-width: 120px;
-        border: 1px solid #e5e5e6;
-        border-top: none;
-        border-left: none;
         height: 25px;
         transition: all .5s ease 0s;
-
-        &_selected {
-           border: 2px solid #1a73e8;
-        }
     }
 
     &__num,
@@ -43,6 +48,7 @@
         border-top: none;
         border-left: none;
         background: #f8f9fa;
+        justify-content: center;
     }
 
     &__num {
@@ -57,11 +63,15 @@
         }
 
         &_active {
-            background: #e8eaed;
+            background: #e8eaed !important;
         }
     }
 
     &__row {
         display: flex;
+    }
+
+    &__column {
+      min-width: 120px;
     }
 }
