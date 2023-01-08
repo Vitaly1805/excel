@@ -9,7 +9,7 @@
     }
 
     &__info {
-        width: $widthFirstCell + .5px;
+        width: $widthFirstCell + 1px;
         height: calc(100% + 1px);  
         box-sizing: content-box;
         display: flex;

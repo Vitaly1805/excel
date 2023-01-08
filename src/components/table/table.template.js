@@ -8,7 +8,11 @@ function toChar(code) {
 }
 
 function createColumn(value = '') {
-  return `<div class="table-excel__column">${value}</div>`
+  return `
+    <div class="table-excel__column">
+      ${value}
+      <div class="col-resize"></div>
+    </div>`
 }
 
 function createCell(value = '') {
@@ -16,7 +20,12 @@ function createCell(value = '') {
 }
 
 function createNumCell(value = '') {
-  return `<div class="table-excel__num">${value}</div>`
+  const resize = value ? '<div class="row-resize"></div>' : ''
+  return `
+    <div class="table-excel__num">
+      ${value}
+      ${resize}
+    </div>`
 }
 
 function createRow(value, isTop = false) {

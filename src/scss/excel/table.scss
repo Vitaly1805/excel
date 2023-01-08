@@ -57,14 +57,16 @@
 
     &__column,
     &__num {
-        &_selected {
-            background: #5f6368;
-            color: #fff;
-        }
+      position: relative;
 
-        &_active {
-            background: #e8eaed !important;
-        }
+      &_selected {
+          background: #5f6368;
+          color: #fff;
+      }
+
+      &_active {
+          background: #e8eaed;
+      }
     }
 
     &__row {
@@ -73,5 +75,37 @@
 
     &__column {
       min-width: 120px;
+    }
+
+    .row-resize,
+    .col-resize {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      background: #1a73e8;
+      opacity: 0;
+      transition: opacity .5s ease 0s;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    .row-resize {
+      height: 4px;
+      left: 0;
+
+      &:hover {
+        cursor: row-resize;
+      }
+    }
+
+    .col-resize {
+      width: 4px;
+      top: 0;
+
+      &:hover {
+        cursor: col-resize;
+      }
     }
 }
