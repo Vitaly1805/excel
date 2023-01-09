@@ -1,50 +1,45 @@
 import {setStyles} from '@core/utils.js'
 
 export class Resize {
-  static minCellWidth = 40
-  static minCellHeight = 25
-
-  static start(event, $root) {
+  static start(event, $root, minCellWidth, minCellHeight) {
     this.$root = $root
-    const $resizer = event.target
-    const dataset = $resizer.dataset
+    this.minCellWidth = minCellWidth
+    this.minCellHeight = minCellHeight
+    this.$resizer = event.target
+    this.$resizableElem = this.$resizer.closest('[data-type="resizable"]')
+    this.typeResize = this.$resizer.dataset.resize
 
-    if (dataset.resize) {
-      const $resizableElem = $resizer.closest('[data-type="resizable"]')
-      const typeResize = dataset.resize
-      $resizer.classList.add('_active')
+    this.setResizerStyle()
 
-      document.onmousemove = e => this.onMousemove.apply(this, [e, $resizer, $resizableElem, typeResize])
-      document.onmouseup = () => this.onMouseup.apply(this, [$resizer, $resizableElem, typeResize])
-    }
+    document.onmousemove = e => this.onMousemove.apply(this, [e])
+    document.onmouseup = () => this.onMouseup.apply(this)
   }
 
-  static onMousemove(e, $resizer, $resizableElem, typeResize) {
-    const coords = $resizableElem.getBoundingClientRect()
+  static onMousemove(e) {
+    const coords = this.$resizableElem.getBoundingClientRect()
 
-    if (typeResize === 'col') {
+    if (this.typeResize === 'col') {
       const width = e.clientX - coords.x
       this.setColWidth(width)
-    } else if (typeResize === 'row') {
-      const height = e.clientY - $resizableElem.offsetTop
+    } else if (this.typeResize === 'row') {
+      const height = e.clientY - this.$resizableElem.offsetTop
       this.setRowHeight(height)
     }
 
-    this.setResizeCoords($resizer, e, coords, typeResize)
+    this.setResizerCoords(e, coords)
   }
 
-  static onMouseup($resizer, $resizableElem, typeResize) {
-    $resizer.classList.remove('_active')
+  static onMouseup() {
     document.onmousemove = null
     document.onmouseup = null
 
-    if (typeResize === 'col') {
-      this.addWidthCells($resizableElem)
-      setStyles($resizer, {'right': '0px'})
+    if (this.typeResize === 'col') {
+      this.addWidthCells(this.$resizableElem)
     } else {
-      setStyles($resizableElem, {'height': `${this.height}px`})
-      setStyles($resizer, {'bottom': '0px'})
+      setStyles(this.$resizableElem, {'height': `${this.height}px`})
     }
+
+    this.removeResizerStyle()
   }
 
   static setColWidth(width) {
@@ -63,8 +58,8 @@ export class Resize {
     }
   }
 
-  static addWidthCells($resizableElem) {
-    const letter = $resizableElem.dataset.col
+  static addWidthCells() {
+    const letter = this.$resizableElem.dataset.col
     const $cells = this.$root.querySelectorAll(`[data-col="${letter}"]`)
 
     $cells.forEach($elem => {
@@ -72,17 +67,37 @@ export class Resize {
     })
   }
 
-  static setResizeCoords($resizer, event, coords, typeResize) {
-    if (typeResize === 'col') {
+  static setResizerCoords(event, coords) {
+    if (this.typeResize === 'col') {
       if (this.width > this.minCellWidth) {
-        const resizePadding = coords.right - event.clientX
-        setStyles($resizer, {'right': `${resizePadding}px`})
+        setStyles(this.$resizer, {'right': `${coords.right - event.clientX}px`})
       }
     } else {
       if (this.height > this.minCellHeight) {
-        const resizePadding = coords.bottom - event.clientY
-        setStyles($resizer, {'bottom': `${resizePadding}px`})
+        setStyles(this.$resizer, {'bottom': `${coords.bottom - event.clientY}px`})
       }
     }
+  }
+
+  static setResizerStyle() {
+    const sideProp = this.typeResize === 'col' ? 'bottom' : 'right'
+    const cursor = this.typeResize === 'col' ? 'col-resize' : 'row-resize'
+
+    setStyles(this.$resizer, {
+      "opacity": 1,
+      [sideProp]: "-10000px",
+      "cursor": cursor
+    })
+  }
+
+  static removeResizerStyle() {
+    setStyles(this.$resizer, {
+      'opacity': '0',
+      'right': '0',
+      'bottom': '0',
+    })
+    setStyles(document.body, {
+      'cursor': 'auto'
+    })
   }
 }

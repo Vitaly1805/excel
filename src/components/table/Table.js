@@ -23,7 +23,7 @@ export class Table extends ExcelComponent {
 
   onMousedown(event) {
     if (shouldResize(event)) {
-      Resize.start(event, this.$root)
+      Resize.start(event, this.$root, 40, 25)
     }
   }
 }
