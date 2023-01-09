@@ -13,7 +13,8 @@
         "quotes": "off",
         "require-jsdoc": "off",
         "max-len": "off",
-        "no-debugger": "off"
+        "no-debugger": "off",
+        "indent": "off"
     },
     "extends": [
         "eslint:recommended", 
