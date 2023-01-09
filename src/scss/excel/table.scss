@@ -1,7 +1,8 @@
 .table-excel {
-    max-width: 100%;
+    width: 100%;
 
     &__body {
+        width: 100%;
         overflow: auto;
         max-height: calc(100vh - $heightFormula - $heightHeader - $heightToolbar);
 
@@ -22,7 +23,8 @@
     }
 
     &__cell {
-      min-width: 120px;
+      min-width: 40px;
+      width: 120px;
       border-bottom: 1px solid #e5e5e6;
       border-right: 1px solid #e5e5e6;
       padding: 2px 0 0 0;
@@ -38,8 +40,8 @@
     &__num  {
         display: flex;
         align-items: center;
-        height: 25px;
-        transition: all .5s ease 0s;
+        min-height: 25px;
+        flex-shrink: 0;
     }
 
     &__num,
@@ -57,6 +59,7 @@
 
     &__column,
     &__num {
+      user-select: none;
       position: relative;
 
       &_selected {
@@ -74,26 +77,46 @@
     }
 
     &__column {
-      min-width: 120px;
+      min-width: 40px;
+      width: 120px;
     }
 
     .row-resize,
     .col-resize {
       position: absolute;
+      z-index: 5;
       bottom: 0;
       right: 0;
       background: #1a73e8;
       opacity: 0;
       transition: opacity .5s ease 0s;
 
+      &._active,
       &:hover {
         opacity: 1;
+      }
+
+      &._active {
+        &:before {
+          content: '';
+          position: absolute;
+          background: #1a73e8;
+        }
       }
     }
 
     .row-resize {
       height: 4px;
       left: 0;
+
+      &._active {
+        &:before {
+          width: 100vw;
+          bottom: 1px;
+          left: 0;
+          height: 1px;
+        }
+      }
 
       &:hover {
         cursor: row-resize;
@@ -103,6 +126,15 @@
     .col-resize {
       width: 4px;
       top: 0;
+
+      &._active {
+        &:before {
+          width: 1px;
+          top: 0;
+          right: 1px;
+          height: calc(100vh - $heightHeader - $heightFormula - $heightToolbar);
+        }
+      }
 
       &:hover {
         cursor: col-resize;
