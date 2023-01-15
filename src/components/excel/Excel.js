@@ -1,7 +1,10 @@
+import {Emitter} from "@core/Emitter";
+
 export class Excel {
   constructor(selector, options) {
     this.$el = document.querySelector(selector)
     this.Components = options.components || []
+    this.emitter = new Emitter()
   }
 
   render() {
@@ -9,7 +12,11 @@ export class Excel {
       const $root = document.createElement('div')
       $root.classList.add(Component.className)
 
-      const component = new Component($root)
+      const componentOptions = {
+        emitter: this.emitter
+      }
+
+      const component = new Component($root, componentOptions)
       $root.innerHTML = component.getHTML()
       this.$el.append($root)
 
@@ -17,7 +24,7 @@ export class Excel {
     })
 
     this.components.forEach(component => {
-      component.initDomListeners()
+      component.init()
     });
   }
 }

@@ -1,6 +1,6 @@
 import {setStyles} from '@core/utils.js'
 
-export class Resize {
+export class TableResize {
   static start(event, $root, minCellWidth, minCellHeight) {
     this.$root = $root
     this.minCellWidth = minCellWidth
@@ -9,10 +9,10 @@ export class Resize {
     this.$resizableElem = this.$resizer.closest('[data-type="resizable"]')
     this.typeResize = this.$resizer.dataset.resize
 
-    this.setResizerStyle()
+    this.$resizer.classList.add('_selected')
 
     document.onmousemove = e => this.onMousemove.apply(this, [e])
-    document.onmouseup = () => this.onMouseup.apply(this)
+    document.onmouseup = () => this.onMouseup.apply(this, [])
   }
 
   static onMousemove(e) {
@@ -21,7 +21,7 @@ export class Resize {
     if (this.typeResize === 'col') {
       const width = e.clientX - coords.x
       this.setColWidth(width)
-    } else if (this.typeResize === 'row') {
+    } else {
       const height = e.clientY - this.$resizableElem.offsetTop
       this.setRowHeight(height)
     }
@@ -79,25 +79,12 @@ export class Resize {
     }
   }
 
-  static setResizerStyle() {
-    const sideProp = this.typeResize === 'col' ? 'bottom' : 'right'
-    const cursor = this.typeResize === 'col' ? 'col-resize' : 'row-resize'
-
-    setStyles(this.$resizer, {
-      "opacity": 1,
-      [sideProp]: "-10000px",
-      "cursor": cursor
-    })
-  }
-
   static removeResizerStyle() {
+    const typePosition = this.typeResize === 'col' ? 'right' : 'bottom'
+
+    this.$resizer.classList.remove('_selected')
     setStyles(this.$resizer, {
-      'opacity': '0',
-      'right': '0',
-      'bottom': '0',
-    })
-    setStyles(document.body, {
-      'cursor': 'auto'
+      [typePosition]: '0',
     })
   }
 }

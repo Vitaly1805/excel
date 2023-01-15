@@ -15,8 +15,8 @@ function createColumn(value = '') {
     </div>`
 }
 
-function createCell(value = '') {
-  return `<div class="table-excel__cell" data-col="${value}" contenteditable></div>`
+function createCell(letter = '', row = 0, col = 0) {
+  return `<div class="table-excel__cell" data-type="cell" data-cell="${col}:${row}" data-col="${letter}" contenteditable></div>`
 }
 
 function createNumCell(value = '') {
@@ -31,14 +31,13 @@ function createNumCell(value = '') {
 function createRow(value, isTop = false) {
   let row = '<div class="table-excel__row" data-type="row">'
   const countColumn = CODES.Z - CODES.A
-
   row = row + createNumCell(value, true)
 
   for (let i = 0; i <= countColumn; i++) {
     if (isTop) {
       row = row + createColumn(toChar(CODES.A + i))
     } else {
-      row = row + createCell(toChar(CODES.A + i))
+      row = row + createCell(toChar(CODES.A + i), value - 1, i)
     }
   }
 
@@ -50,7 +49,7 @@ export function createTable(countRow = 25) {
 
   table = table + createRow('', true)
 
-  for (let i = 1; i <= countRow; i++) {
+  for (let i = 1; i < countRow; i++) {
     table = table + createRow(i)
   }
 

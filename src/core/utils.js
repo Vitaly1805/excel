@@ -11,3 +11,13 @@ export function setStyles(elem, styles) {
       .keys(styles)
       .forEach(key => elem.style[key] = styles[key])
 }
+
+export function range(start, end) {
+  if (start > end) {
+    [start, end] = [end, start]
+  }
+
+  return Array(end - start + 1)
+              .fill('')
+              .map(() => start++)
+}

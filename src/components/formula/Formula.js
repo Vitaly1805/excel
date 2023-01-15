@@ -3,13 +3,12 @@ import {ExcelComponent} from "@core/ExcelComponent";
 export class Formula extends ExcelComponent {
   static className = 'formula-excel'
 
-  constructor($root) {
+  constructor($root, options) {
     super($root, {
       name: 'Formula',
-      listeners: ['input']
+      listeners: ['input', 'keydown'],
+      ...options
     })
-
-    this.count = 0
   }
 
   getHTML() {
@@ -19,21 +18,25 @@ export class Formula extends ExcelComponent {
           <div class="formula-excel__info">
             fx
           </div>
-          <div contenteditable="" class="formula-excel__input"></div>
+          <div contenteditable="" data-formula="input" class="formula-excel__input"></div>
         </div>
       </div>`
   }
 
-  onInput(event) {
-    this.count++
+  init() {
+    super.init()
+    this.input = this.$root.querySelector('[data-formula="input"]')
+    this.$subscribe(['table:input', 'table:navigation'], (text) => this.input.textContent = text)
+  }
 
-    if (this.count > 5) {
-      console.log('qw')
-      this.$root.removeEventListener('input', this.onInput)
-    } else {
-      console.log(this.count)
+  onInput() {
+    const text = this.input.textContent
+    this.$emit('formula:input', text)
+  }
+
+  onKeydown(event) {
+    if (event.key === 'Enter') {
+      this.$emit('formula:enter')
     }
-    // console.log(this.$root)
-    // console.log(event.target.innerText)
   }
 }
