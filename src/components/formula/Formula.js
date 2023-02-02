@@ -30,8 +30,7 @@ export class Formula extends ExcelComponent {
   }
 
   onInput() {
-    const text = this.input.textContent
-    this.$emit('formula:input', text)
+    this.$emit('formula:input', this.input.textContent)
   }
 
   onKeydown(event) {
