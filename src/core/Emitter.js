@@ -7,6 +7,7 @@ export class Emitter {
     if (!this.listeners[event]) {
       return false
     }
+    // console.log(event)
 
     this.listeners[event].forEach(listener => {
       listener(...args)

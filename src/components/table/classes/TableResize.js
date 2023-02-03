@@ -43,19 +43,11 @@ export class TableResize {
   }
 
   static setColWidth(width) {
-    if (width >= this.minCellWidth) {
-      this.width = width
-    } else {
-      this.width = this.minCellWidth
-    }
+    this.width = width >= this.minCellWidth ? width : this.minCellWidth
   }
 
   static setRowHeight(height) {
-    if (height >= this.minCellHeight) {
-      this.height = height
-    } else {
-      this.height = this.minCellHeight
-    }
+    this.height = height >= this.minCellHeight ? height : this.minCellHeight
   }
 
   static addWidthCells() {

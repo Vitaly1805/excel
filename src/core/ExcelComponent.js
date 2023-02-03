@@ -21,9 +21,9 @@ export class ExcelComponent extends DomListener {
 
   $subscribe(event, fn) {
     if (Array.isArray(event)) {
-      event.forEach(e => this.emitter.subscribe(e, fn))
+      return event.map(e => this.emitter.subscribe(e, fn))
     } else {
-      this.emitter.subscribe(event, fn)
+      return this.emitter.subscribe(event, fn)
     }
   }
 

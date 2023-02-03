@@ -25,7 +25,7 @@
     &__cell {
       border-bottom: 1px solid #e5e5e6;
       border-right: 1px solid #e5e5e6;
-      padding: 2px 0 0 0;
+      padding: 2px;
 
       &._selected {
         border: 2px solid #9ac0f3;
@@ -42,8 +42,12 @@
     &__column,
     &__num  {
       display: flex;
-      align-items: center;
       flex-shrink: 0;
+    }
+
+    &__column,
+    &__num  {
+      align-items: center;
     }
 
     &__num,
@@ -62,7 +66,6 @@
 
     &__column,
     &__num {
-      user-select: none;
       position: relative;
 
       &_selected {

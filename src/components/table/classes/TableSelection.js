@@ -46,11 +46,9 @@ export class TableSelection {
   }
 
   setFocus() {
-    const [range, selection] = [new Range(), document.getSelection()];
-    range.selectNodeContents(this.$currentCell);
-    range.collapse(false);
-    selection.removeAllRanges();
-    selection.addRange(range);
+    const selection = document.getSelection()
+    selection.selectAllChildren(this.$currentCell)
+    selection.collapseToEnd()
     this.$currentCell.focus()
   }
 }

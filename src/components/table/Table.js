@@ -8,11 +8,13 @@ import {matrix} from "./table.functions";
 export class Table extends ExcelComponent {
   static className = 'table-excel'
   countRow = 50
+  minCellWidth = 40
+  minCellHeight = 25
 
   constructor($root, options) {
     super($root, {
       name: 'Table',
-      listeners: ['mousedown', 'keydown'],
+      listeners: ['mousedown', 'keydown', 'keyup'],
       ...options
     })
   }
@@ -40,7 +42,7 @@ export class Table extends ExcelComponent {
     event.preventDefault();
 
     if (shouldResize(event)) {
-      TableResize.start(event, this.$root, 40, 25)
+      TableResize.start(event, this.$root, this.minCellWidth, this.minCellHeight)
     } else if (isCell(event)) {
       if (event.ctrlKey) {
         this.selection.selectCtrlGroup(event.target)
@@ -71,9 +73,14 @@ export class Table extends ExcelComponent {
           this.$emit('table:navigation', $cell.textContent)
         }
       }
-    } else {
-      const text = event.target.textContent
-      this.$emit('table:input', text)
+    }
+  }
+
+  onKeyup(event) {
+    const {key} = event
+
+    if (!isSystemKey(key)) {
+      this.$emit('table:input', event.target.innerText)
     }
   }
 }
